@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+     <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<meta name="format-detection" content="telephone=no">
+    <title>beautiful_girl</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <div id="waterfall">
+
+    </div>
+    <div class="loader" id="loader">
+        <div class="loader-inner line-spin-fade-loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/waterfall.js"></script>
+    <script>
+    	window.onload = function(){
+
+    		var waterfall = new WaterFall({
+    		    container: '#waterfall',
+    		    pins: ".pin",
+    		    loader: '#loader',
+    		    gapHeight: 20,
+    		    gapWidth: 20,
+    		    pinWidth: 216,
+                threshold: 100
+    		});
+
+    		waterfall.on("load", function(){
+
+    			setTimeout(function(){
+
+    				// 生成模拟数据
+    				var mockData = {
+    				    data: []
+    				};
+    				for (var i = 0; i < 10; i++) {
+    				    mockData.data[i] = {
+    				        src: 'img/' + Math.ceil(Math.random() * 154) + '.jpg',
+    				        title: '爱你的第' + Math.ceil(Math.random() * 154)+'张'
+    				    }
+    				}
+
+                    var arr = [];
+                    for (var i = 0, len = mockData.data.length; i < len; i++) {
+                        var data = mockData.data[i];
+                        arr.push('<div class="pin"><img src="' + data.src + '" class="img" alt="'+ data.title +'"> <p class="description">'+ data.title +'</p></div>')
+                    }
+
+    				// 调用 append 方法 检验是否所有的图片都具有高度后才会 append 进文档树中
+    				waterfall.append(arr.join(''), '.img')
+    			}, 1000)
+    		})
+    	}
+    </script>
+</body>
+
+</html>
